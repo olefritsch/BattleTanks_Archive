@@ -4,25 +4,23 @@
 
 #include "Tank.h"
 
-#include "GameFramework/PlayerController.h"
-#include "TankPlayerController.generated.h"
+#include "AIController.h"
+#include "TankAIController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BATTLETANKS_API ATankPlayerController : public APlayerController
+class BATTLETANKS_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
 private:
 	virtual void BeginPlay() override;
 
-	virtual void Tick(float DeltaTime) override;
-
 	ATank* GetControlledTank() const;
 
-	void AimAtCrosshair();
+	ATank* GetPlayerTank() const;
 	
 	
 };
