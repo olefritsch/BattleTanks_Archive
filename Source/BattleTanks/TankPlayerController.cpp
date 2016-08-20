@@ -37,3 +37,8 @@ void ATankPlayerController::AimAtCrosshair()
 	// TODO implement aim
 }
 
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
+{
+	return false;
+}
+

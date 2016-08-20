@@ -23,6 +23,8 @@ private:
 	ATank* GetControlledTank() const;
 
 	void AimAtCrosshair();
+
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	
 	
 };
