@@ -32,13 +32,20 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimAtCrosshair()
 {
-	if (!GetControlledTank) return;
+	if (!GetControlledTank()) return;
 	
 	// TODO implement aim
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
+	int32 ViewportSizeX, ViewportSizeY;
+	GetViewportSize(ViewportSizeX, ViewportSizeY);
+
+	FVector2D CrosshairLocation = FVector2D((ViewportSizeX * CrosshairXLocation), (ViewportSizeY * CrosshairYLocation));
+
 	return false;
 }
+
+
 
