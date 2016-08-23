@@ -16,6 +16,7 @@ class BATTLETANKS_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 private:
+	ATank* ControlledTank;
 	
 	virtual void BeginPlay() override;
 
@@ -25,7 +26,7 @@ private:
 
 	void AimAtCrosshair();
 
-	bool GetCrosshairTraceHit(FString& ObjectHit, FVector& HitLocation) const;
+	bool GetCrosshairTraceHit(FVector& HitLocation) const;
 
 	FVector2D GetCrosshairLocation() const;
 

@@ -4,12 +4,13 @@
 #include "TankPlayerController.h"
 
 
+// Called when the game starts or when spawned
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	///Check controlled Tank
-	ATank* ControlledTank = GetControlledTank();
+	/// Check controlled Tank
+	ControlledTank = GetControlledTank();
 	if (!ControlledTank)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a Tank"));
@@ -20,6 +21,8 @@ void ATankPlayerController::BeginPlay()
 	}
 }
 
+
+// Called every frame
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -35,30 +38,22 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimAtCrosshair()
 {
-	if (!GetControlledTank()) return;
+	if (!ControlledTank) return;
 	
-	FString ObjectHit = "";
 	FVector HitLocation = FVector(0);
-
-	GetCrosshairTraceHit(ObjectHit, HitLocation);
-
-	UE_LOG(LogTemp, Warning, TEXT("ObjectHit: %s | HitLocation: %s"), *ObjectHit, *(HitLocation.ToString()));
-
+	GetCrosshairTraceHit(HitLocation);
+	ControlledTank->AimAt(HitLocation);
 }
 
-bool ATankPlayerController::GetCrosshairTraceHit(FString& ObjectHit, FVector & HitLocation) const
+bool ATankPlayerController::GetCrosshairTraceHit(FVector & HitLocation) const
 {
 	FVector2D CrosshairLocation = GetCrosshairLocation();
 	FHitResult HitResult;
 	
 	bool bHit = GetHitResultAtScreenPosition(CrosshairLocation, ECollisionChannel::ECC_Visibility, false, HitResult);
 
-	if (bHit)
-	{
-		ObjectHit = HitResult.GetActor()->GetName();
-		HitLocation = HitResult.Location;
-	}
-
+	if (bHit) HitLocation = HitResult.Location;
+		
 	return bHit;
 }
 
