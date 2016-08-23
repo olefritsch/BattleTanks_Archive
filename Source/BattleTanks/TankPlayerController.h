@@ -16,13 +16,7 @@ class BATTLETANKS_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 private:
-	UPROPERTY(EditAnywhere)
-		float CrosshairXLocation = 0.5;
 	
-	UPROPERTY(EditAnywhere)
-		float CrosshairYLocation = (1 / 3);
-
-
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
@@ -31,7 +25,8 @@ private:
 
 	void AimAtCrosshair();
 
-	bool GetSightRayHitLocation(FVector& HitLocation) const;
-	
+	bool GetCrosshairTraceHit(FString& ObjectHit, FVector& HitLocation) const;
+
+	FVector2D GetCrosshairLocation() const;
 
 };

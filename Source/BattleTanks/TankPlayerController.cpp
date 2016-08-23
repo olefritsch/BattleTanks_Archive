@@ -23,6 +23,9 @@ void ATankPlayerController::BeginPlay()
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	AimAtCrosshair();
+
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
@@ -34,18 +37,37 @@ void ATankPlayerController::AimAtCrosshair()
 {
 	if (!GetControlledTank()) return;
 	
-	// TODO implement aim
+	FString ObjectHit = "";
+	FVector HitLocation = FVector(0);
+
+	GetCrosshairTraceHit(ObjectHit, HitLocation);
+
+	UE_LOG(LogTemp, Warning, TEXT("ObjectHit: %s | HitLocation: %s"), *ObjectHit, *(HitLocation.ToString()));
+
 }
 
-bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
+bool ATankPlayerController::GetCrosshairTraceHit(FString& ObjectHit, FVector & HitLocation) const
+{
+	FVector2D CrosshairLocation = GetCrosshairLocation();
+	FHitResult HitResult;
+	
+	bool bHit = GetHitResultAtScreenPosition(CrosshairLocation, ECollisionChannel::ECC_Visibility, false, HitResult);
+
+	if (bHit)
+	{
+		ObjectHit = HitResult.GetActor()->GetName();
+		HitLocation = HitResult.Location;
+	}
+
+	return bHit;
+}
+
+
+FVector2D ATankPlayerController::GetCrosshairLocation() const
 {
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
-
-	FVector2D CrosshairLocation = FVector2D((ViewportSizeX * CrosshairXLocation), (ViewportSizeY * CrosshairYLocation));
-
-	return false;
+	return FVector2D((ViewportSizeX / 2), (ViewportSizeY / 3));
 }
-
 
 
