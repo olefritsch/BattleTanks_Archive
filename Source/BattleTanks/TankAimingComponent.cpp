@@ -41,8 +41,17 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* Barrel)
 }
 
 
-void UTankAimingComponent::AimAt(FVector WorldSpaceLocation)
+void UTankAimingComponent::AimAt(FVector WorldSpaceLocation, float LaunchSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *(GetOwner()->GetName()), *(WorldSpaceLocation.ToString()));
+	if (!Barrel) return;
+
+	FVector LaunchVelocity;
+	FVector StartLocation = Barrel->GetSocketLocation(FName("ProjectileStart"));
+
+	if (UGameplayStatics::SuggestProjectileVelocity(this, LaunchVelocity, StartLocation, WorldSpaceLocation, LaunchSpeed, false, 1.0f, 0.0f, ESuggestProjVelocityTraceOption::DoNotTrace))
+	{
+		FVector LaunchDirection = LaunchVelocity.GetSafeNormal();
+		UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *(LaunchDirection.ToString()));
+	}
 }
 

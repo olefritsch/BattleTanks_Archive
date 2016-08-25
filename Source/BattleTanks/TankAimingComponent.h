@@ -23,7 +23,7 @@ public:
 
 	void SetBarrelReference(UStaticMeshComponent* Barrel);
 
-	void AimAt(FVector WorldSpaceLocation);
+	void AimAt(FVector WorldSpaceLocation, float LaunchSpeed);
 	
 private:
 	UStaticMeshComponent* Barrel;
