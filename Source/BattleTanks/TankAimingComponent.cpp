@@ -32,7 +32,7 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* Barrel)
 
 void UTankAimingComponent::AimAt(FVector WorldSpaceLocation, float LaunchSpeed)
 {
-	if (!Barrel) return;
+	if (!Turret || !Barrel) return;
 
 	FVector LaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("ProjectileStart"));
