@@ -43,10 +43,7 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceLocation, float LaunchSpeed)
 		RotateTurretToward(LaunchDirection);
 		MoveBarrelToward(LaunchDirection);
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%f: Could not find aim"), GetWorld()->GetRealTimeSeconds());
-	}
+	// If no aim found do nothing
 }
 
 

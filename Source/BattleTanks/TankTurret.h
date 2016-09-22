@@ -18,6 +18,6 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-		float MaxRotateSpeed = 15.0f;
+		float MaxRotateSpeed = 20.0f;
 	
 };
