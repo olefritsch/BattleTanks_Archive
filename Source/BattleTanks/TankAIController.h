@@ -22,10 +22,5 @@ private:
 	virtual void Tick(float DeltaTime) override;
 
 	void AimAtPlayer();
-
-	ATank* GetControlledTank() const;
-
-	ATank* GetPlayerTank() const;
-	
 	
 };

@@ -30,11 +30,11 @@ public:
 	void AimAt(FVector HitLocation);
 
 protected:
-	UTankAimingComponent* AimingComponent;
+	UTankAimingComponent* AimingComponent = nullptr;
 
 private:
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 100000.0f; // Speed of 1000m/s
+		float LaunchSpeed = 4000.0f; // Speed of 40m/s
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
@@ -51,4 +51,7 @@ private:
 	// Local reference to Barrel
 	UTankBarrel* Barrel = nullptr;
 
+	float ReloadTimeInSeconds = 3.0f;
+
+	double LastFireTime = 0;
 };
