@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTanks.h"
+#include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
 
@@ -27,18 +29,18 @@ void ATank::BeginPlay()
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
 	Super::SetupPlayerInputComponent(InputComponent);
-
 }
 
 
-void ATank::SetTurretReference(UTankTurret * Turret)
+void ATank::SetTurretReference(UTankTurret * TurretToSet)
 {
-	AimingComponent->SetTurretReference(Turret);
+	AimingComponent->SetTurretReference(TurretToSet);
 }
 
-void ATank::SetBarrelReference(UTankBarrel* Barrel)
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
-	AimingComponent->SetBarrelReference(Barrel);
+	AimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 
@@ -51,6 +53,9 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::Fire()
 {
 	float Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("Firing tank at time %f"), Time)
+	UE_LOG(LogTemp, Warning, TEXT("Firing tank at time %f"), Time);
+
+	if (!Barrel) return; 
+	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("ProjectileStart")), Barrel->GetSocketRotation(FName("ProjectileStart")));
 }
 
