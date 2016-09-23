@@ -7,6 +7,7 @@
 
 /// Forward Declatations
 class UTankAimingComponent;
+class UTankMovementComponent;
 class UTankTurret;
 class UTankBarrel;
 class AProjectile;
@@ -31,6 +32,9 @@ public:
 
 protected:
 	UTankAimingComponent* AimingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* MovementComponent = nullptr;
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
