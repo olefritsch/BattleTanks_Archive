@@ -17,10 +17,11 @@ private:
 	ATank* ControlledTank;
 	ATank* PlayerTank;
 
+	// How close the AI Tank will get to the Player Tank
+	float AcceptanceRadius = 3000.0f;
+
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
 
-	void AimAtPlayer();
-	
 };
